@@ -1,0 +1,64 @@
+package com.example.controller;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.example.entity.OrgEntity;
+import com.example.service.OrgService;
+
+@RestController
+@RequestMapping("/org")
+public class OrgController {
+
+	@Autowired
+	private OrgService orgService;
+	
+	
+	@PostMapping("/save")
+	public ResponseEntity<OrgEntity> save(@RequestBody OrgEntity user) {
+		
+		OrgEntity result = this.orgService.save(user);
+		return ResponseEntity.ok(result);
+		
+	}
+	
+	@GetMapping("/getByName/{name}")
+	public ResponseEntity<OrgEntity> getByName(@PathVariable String name){
+		
+		return ResponseEntity.ok(orgService.getUserByName(name));
+	}
+	
+	@GetMapping("/getById/{id}")
+	public ResponseEntity<OrgEntity> getById(@PathVariable String id){
+		
+		Long userId = Long.parseLong(id);
+		return ResponseEntity.ok(orgService.getUserById(userId));
+	}
+	
+	@GetMapping("/getAll")
+	public ResponseEntity<List<OrgEntity>> getAll(){
+		return ResponseEntity.ok(orgService.getAll());
+	}
+	
+	@PutMapping("/update")
+	public ResponseEntity<OrgEntity> update(@RequestBody OrgEntity user){
+		return ResponseEntity.ok(orgService.save(user));
+	}
+	
+	@GetMapping("/remove/{id}")
+	public ResponseEntity<Boolean> removeOrg(@PathVariable Long id){
+		
+		boolean result = orgService.removeUser(id);
+		return ResponseEntity.ok(orgService.removeUser(id));
+	}
+	
+}

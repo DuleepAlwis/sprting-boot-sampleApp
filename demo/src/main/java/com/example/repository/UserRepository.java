@@ -1,0 +1,15 @@
+package com.example.repository;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
+
+import com.example.entity.UserEntity;
+
+@Repository
+public interface UserRepository extends JpaRepository<UserEntity,Long> {
+
+	@Query(value = "SELECT * FROM user where name = ?1",
+			nativeQuery = true)
+	public UserEntity getByName(String name);
+}

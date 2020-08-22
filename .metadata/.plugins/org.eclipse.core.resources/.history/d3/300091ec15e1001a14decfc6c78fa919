@@ -1,0 +1,53 @@
+package com.example.service;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.example.entity.OrgEntity;
+import com.example.repository.OrgRepository;
+
+public class OrgService {
+
+	@Autowired
+	private OrgRepository orgRepository;
+
+	public OrgEntity save(OrgEntity user) {
+
+		OrgEntity result = this.orgRepository.save(user);
+
+		return result;
+	}
+
+	public OrgEntity update(OrgEntity user) {
+
+		OrgEntity result = this.orgRepository.save(user);
+
+		return result;
+	}
+
+	public OrgEntity getUserByName(String name) {
+
+		OrgEntity result = this.orgRepository.getByName(name);
+
+		return result;
+	}
+	
+	public OrgEntity getUserById(Long id) {
+
+		OrgEntity result = this.orgRepository.getOne(id);
+
+		return result;
+	}
+	
+	public List<OrgEntity> getAll(){
+		
+		return this.orgRepository.findAll();
+	}
+	
+	public boolean removeOrg(Long id) {
+		
+		this.orgRepository.deleteById(id);
+		return true;
+	}
+}
